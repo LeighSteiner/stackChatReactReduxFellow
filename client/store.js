@@ -97,7 +97,19 @@ export function fetchChannels () {
   }
 }
 
-export function postChannel (channel) {
+// export function postChannel (channel) {
+
+//   return function thunk (dispatch) {
+//     return axios.post('/api/channels', channel)
+//       .then(res => res.data)
+//       .then(newChannel => {
+//         dispatch(getChannel(newChannel));
+//         socket.emit('new-channel', newChannel);
+//       });
+//   };
+// }
+
+export function postChannel (channel, history) {
 
   return function thunk (dispatch) {
     return axios.post('/api/channels', channel)
@@ -105,6 +117,7 @@ export function postChannel (channel) {
       .then(newChannel => {
         dispatch(getChannel(newChannel));
         socket.emit('new-channel', newChannel);
+        history.push(`/channels/${newChannel.id}`);
       });
   };
 }

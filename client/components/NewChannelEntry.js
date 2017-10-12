@@ -35,10 +35,17 @@ const mapDispatchToProps = function (dispatch, ownProps) {
     handleChange (evt) {
       dispatch(writeChannelName(evt.target.value));
     },
-    handleSubmit (evt) {
+    // handleSubmit (evt) {
+    //   evt.preventDefault();
+    //   const name = evt.target.channelName.value;
+    //   dispatch(postChannel({ name }));  // this is ES6 object destructuring! It's equivalent to { name: name }
+    // }, 
+    handleSubmit ( evt) {
       evt.preventDefault();
-      const name = evt.target.channelName.value;
-      dispatch(postChannel({ name }));  // this is ES6 object destructuring! It's equivalent to { name: name }
+      const name = evt.target.channelName.value
+      console.log('NAME', name)
+      dispatch(postChannel({ name }, ownProps.history));
+      dispatch(writeChannelName(''));
     }
   };
 };
